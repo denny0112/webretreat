@@ -2,6 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\absensi;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
 use App\pembayaran;
 use App\peserta;
 use App\sesi;
@@ -70,6 +79,8 @@ class adminController extends Controller
 
         File::delete(public_path("bukti/").$pm->peserta_bukti);
 
+        $this->createQrCode($pm->peserta_nrp);
+
         $pm->delete();
 
         return $data[0]["peserta_nama"];
@@ -101,5 +112,54 @@ class adminController extends Controller
     {
         $s = new system();
         $s->updateTema($req);
+    }
+
+    public function createQrCode($text){
+        $writer = new PngWriter();
+
+        // Create QR code
+        $qrCode = QrCode::create('r' . $text)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+
+        // Create generic logo
+        $logo = Logo::create(public_path('logo_if.png'))
+            ->setResizeToWidth(75);
+
+        $result = $writer->write($qrCode, $logo);
+        $result->saveToFile(public_path('qrcodes/') . 'peserta-'.$text.'.png');
+    }
+
+    public function absensi()
+    {
+        return view('admin.absensi');
+    }
+
+    public function aktifkan_sesi($id)
+    {
+        $sesi = sesi::where('status', 1)->first();
+        if($sesi){
+            $sesi->status = 0;
+            $sesi->save();
+        }
+
+        $sesi = sesi::where('sesi_id', $id)->first();
+        $sesi->status = 1;
+        $sesi->save();
+
+        return back();
+    }
+
+    public function detail_absensi($id)
+    {
+        $sesi = sesi::where('sesi_id', $id)->first();
+        $detail = absensi::where('sesi_id', $sesi->sesi_id)->get();
+
+        return view('admin.detail_absensi', ['sesi' => $sesi, 'detail' => $detail]);
     }
 }

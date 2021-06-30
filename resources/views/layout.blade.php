@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+    <script type="text/javascript" src="{{ asset('instascan2.min.js') }}"></script>
     <style>
         body{
             font-family: 'Baloo Bhai 2', cursive;

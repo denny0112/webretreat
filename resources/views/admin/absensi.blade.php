@@ -1,37 +1,13 @@
 @extends('admin.layout')
-@extends('admin.side-nav',["menu"=>"daftar_sesi"])
+@extends('admin.side-nav',["menu"=>"absensi"])
 @extends('admin.modal_preview')
 @section('body')
 <section class="section">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-              <h4>Tambah Sesi</h4>
-            </div>
-            <div class="card-body p-4">
-              <form action="" method="post" id="fsesi">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-12 col-md-10">
-                            <label>Nama Sesi</label>
-                            <input type="text" required name="nama" class="form-control">
-                        </div>
-                        <div class="col-12 col-md-2 text-right">
-                            <button class="btn btn-success mt-4" onclick="tambahSesi()" type="button">Tambah Sesi</button>
-                        </div>
-                    </div>
-                </div>
-              </form>
-            </div>
-          </div>
-      </div>
-
     <div class="row">
-
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                  <h4>Daftar Peserta</h4>
+                  <h4>Daftar Sesi</h4>
                 </div>
                 <div class="card-body p-4">
                   <div class="table-responsive table-invoice">

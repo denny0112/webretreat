@@ -45,7 +45,7 @@
                 <a href="/sesi" class="nav-link"><ion-icon name="documents-outline" style="font-size: 15pt"></ion-icon><span class="ms-3"> Daftar Sesi</span></a>
               </li>
               <li class="nav-item dropdown " id="daftar_absen">
-                <a href="#" class="nav-link"><ion-icon name="finger-print-outline" style="font-size: 15pt"></ion-icon><span class="ms-3"> Absensi Peserta</span></a>
+                <a href="/absensi" class="nav-link"><ion-icon name="finger-print-outline" style="font-size: 15pt"></ion-icon><span class="ms-3"> Absensi Peserta</span></a>
               </li>
               <li class="menu-header">Pembayaran</li>
               <li class="nav-item dropdown " id="pembayaran">
